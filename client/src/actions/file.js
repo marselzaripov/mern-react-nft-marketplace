@@ -47,15 +47,13 @@ export function createDir(dirId, name) {
     }
 }
 
-export function uploadFile(file, dirId) {
+export function uploadFile(formData, dirId) {
     return async dispatch => {
         try {
-            const formData = new FormData()
-            formData.append('file', file)
-            if (dirId) {
-                formData.append('parent', dirId)
-            }
-            const uploadFile = {name: file.name, progress: 0, id: Date.now()}
+            // if (dirId) {
+            //     formData.append('parent', dirId)
+            // }
+            const uploadFile = {name: formData.name, progress: 0, id: Date.now()}
             dispatch(showUploader())
             dispatch(addUploadFile(uploadFile))
             const response = await axios.post(`${API_URL}api/files/upload`, formData, {
@@ -70,7 +68,7 @@ export function uploadFile(file, dirId) {
             });
             dispatch(addFile(response.data))
         } catch (e) {
-            alert(e?.response?.data?.message)
+            alert(e.response)
         }
     }
 }

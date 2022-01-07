@@ -55,6 +55,7 @@ class FileController {
 
     async uploadFile(req, res) {
         try {
+            //console.log("11111111111111" + JSON.stringify(req.body.price))
             const file = req.files.file
 
             const parent = await File.findOne({user: req.user.id, _id: req.body.parent})
@@ -89,7 +90,10 @@ class FileController {
                 size: file.size,
                 path: filePath,
                 parent: parent?._id,
-                user: user._id
+                user: user._id,
+                price: req.body.price,
+                title: req.body.title,
+                description: req.body.description,
             });
 
             await dbFile.save()

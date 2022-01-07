@@ -11,6 +11,10 @@ const File = new Schema({
     user: {type: ObjectId, ref: 'User'},
     parent: {type: ObjectId, ref: 'File'},
     childs: [{type: ObjectId, ref: 'File'}],
+    price: {type: Number, default: 0},
+    title: {type: String, default: ''},
+    description: {type: String, default: ''},
+
 })
 
 module.exports = model('File', File)
